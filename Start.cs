@@ -12,12 +12,23 @@ public partial class Start : Control
     
     public void _on_button_pressed()
     {
-        var userData = GetNode<UserData>("/root/UserData");
-        userData.username = _usernameInput.Text;
-        // Change the scene to main
-        
-        var mainScene = GD.Load<PackedScene>("res://main.tscn");
-        
-        GetTree().ChangeSceneToPacked(mainScene);
+        if (_usernameInput.Text.Length > 2)
+        {
+            var userData = GetNode<UserData>("/root/UserData");
+            userData.username = _usernameInput.Text;
+            // Change the scene to main
+
+            var mainScene = GD.Load<PackedScene>("res://main.tscn");
+
+            GetTree().ChangeSceneToPacked(mainScene);
+        }
+    }
+
+    public override void _Process(double delta)
+    {
+        if (Input.IsActionJustPressed("Enter"))
+        {
+            _on_button_pressed();
+        }
     }
 }

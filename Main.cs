@@ -29,7 +29,18 @@ public partial class Main : Control
     
     private void _on_send_button_pressed()
     {
-        _networkManager.SendMessage(_messageInput.Text);
-        _messageInput.Text = "";
+        if (_messageInput.Text.Length > 5)
+        {
+            _networkManager.SendMessage(_messageInput.Text);
+            _messageInput.Text = "";
+        }
+    }
+
+    public override void _Process(double delta)
+    {
+        if (Input.IsActionJustPressed("Enter"))
+        {
+            _on_send_button_pressed();
+        }
     }
 }
