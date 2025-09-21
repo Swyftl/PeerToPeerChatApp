@@ -29,7 +29,7 @@ public partial class Main : Control
     
     private void _on_send_button_pressed()
     {
-        if (_messageInput.Text.Length is > 5 and < 2048)
+        if (_messageInput.Text.Length is > 0 and < 2048)
         {
             _networkManager.SendMessage(_messageInput.Text);
             _messageInput.Text = "";
