@@ -12,7 +12,7 @@ public partial class Start : Control
     
     public void _on_button_pressed()
     {
-        if (_usernameInput.Text.Length > 2)
+        if (_usernameInput.Text.Length is > 2 and <= 20)
         {
             var userData = GetNode<UserData>("/root/UserData");
             userData.username = _usernameInput.Text;
