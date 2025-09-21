@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://dyyffibexbcn5"]
+[gd_scene load_steps=5 format=3 uid="uid://dyyffibexbcn5"]
 
+[ext_resource type="Theme" uid="uid://ckorw5avm0nr4" path="res://Theme/editor_black_oled/theme.res" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://b5m314cqxevbl" path="res://Main.cs" id="1_ig7tw"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_ig7tw"]
@@ -16,6 +17,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_0xm2m")
 script = ExtResource("1_ig7tw")
 
 [node name="Background" type="ColorRect" parent="."]
@@ -56,6 +58,7 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 71.0
+offset_top = 20.0
 offset_right = -90.0
 offset_bottom = -51.0
 grow_horizontal = 2
