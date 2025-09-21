@@ -7,4 +7,5 @@ public partial class UserData : Node
     public static UserData Instance { get; private set; }
 
     public String username { get; set; }
+    public Theme userTheme { get; set; }
 }
