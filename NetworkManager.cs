@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 public partial class NetworkManager : Node
 {
-    private TcpListener server;
-    private List<TcpClient> clients = new();
-    private TcpClient serverConnection;
-    private const int mainPort = 5001;
-    private bool isServer = false;
-    private string localId;
+    private TcpListener _server;
+    private List<TcpClient> _clients = new();
+    private TcpClient _serverConnection;
+    private const int MainPort = 5001;
+    private bool _isServer = false;
+    private string _localId;
 
     public event Action<string> OnMessageReceived;
 
     public NetworkManager()
     {
-        localId = Guid.NewGuid().ToString();
+        _localId = Guid.NewGuid().ToString();
         TryConnectOrHost();
     }
 
@@ -27,32 +27,32 @@ public partial class NetworkManager : Node
     {
         try
         {
-            serverConnection = new TcpClient();
-            await serverConnection.ConnectAsync(IPAddress.Loopback, mainPort);
-            GD.Print("[Network] Connected to existing server on port " + mainPort);
-            isServer = false;
-            HandleServerConnection(serverConnection);
+            _serverConnection = new TcpClient();
+            await _serverConnection.ConnectAsync(IPAddress.Loopback, MainPort);
+            GD.Print("[Network] Connected to existing server on port " + MainPort);
+            _isServer = false;
+            HandleServerConnection(_serverConnection);
             StartServerHealthCheck();
         }
         catch
         {
             GD.Print("[Network] No server found. Starting as host...");
             StartServer();
-            isServer = true;
+            _isServer = true;
         }
     }
 
     private async void StartServer()
     {
-        server = new TcpListener(IPAddress.Any, mainPort);
-        server.Start();
-        GD.Print("[Network] Hosting server on port " + mainPort);
+        _server = new TcpListener(IPAddress.Any, MainPort);
+        _server.Start();
+        GD.Print("[Network] Hosting server on port " + MainPort);
 
         while (true)
         {
-            var client = await server.AcceptTcpClientAsync();
+            var client = await _server.AcceptTcpClientAsync();
             GD.Print("[Network] Client connected!");
-            clients.Add(client);
+            _clients.Add(client);
             HandleClient(client);
         }
     }
@@ -77,7 +77,7 @@ public partial class NetworkManager : Node
             }
             catch
             {
-                clients.Remove(client);
+                _clients.Remove(client);
                 break;
             }
         }
@@ -86,12 +86,12 @@ public partial class NetworkManager : Node
     private async void Broadcast(string message, TcpClient sender)
     {
         byte[] data = Encoding.UTF8.GetBytes(message + "\n");
-        foreach (var c in clients)
+        foreach (var c in _clients)
         {
             if (c != sender && c.Connected)
             {
                 try { await c.GetStream().WriteAsync(data, 0, data.Length); }
-                catch { clients.Remove(c); }
+                catch { _clients.Remove(c); }
             }
         }
     }
@@ -116,9 +116,9 @@ public partial class NetworkManager : Node
             catch
             {
                 GD.Print("[Client] Lost connection to server.");
-                serverConnection.Close();
-                serverConnection = null;
-                isServer = true;
+                _serverConnection.Close();
+                _serverConnection = null;
+                _isServer = true;
                 GD.Print("[Client] Becoming server...");
                 StartServer();
                 break;
@@ -134,7 +134,7 @@ public partial class NetworkManager : Node
 
         byte[] data = Encoding.UTF8.GetBytes(formattedMessage + "\n");
 
-        if (isServer)
+        if (_isServer)
         {
             GD.Print("[Server] Sending: " + formattedMessage);
             Broadcast(formattedMessage, null);
@@ -142,11 +142,11 @@ public partial class NetworkManager : Node
         }
         else
         {
-            if (serverConnection != null && serverConnection.Connected)
+            if (_serverConnection != null && _serverConnection.Connected)
             {
                 try
                 {
-                    await serverConnection.GetStream().WriteAsync(data, 0, data.Length);
+                    await _serverConnection.GetStream().WriteAsync(data, 0, data.Length);
                     OnMessageReceived?.Invoke(formattedMessage);
                 }
                 catch
@@ -159,12 +159,12 @@ public partial class NetworkManager : Node
 
     private async void StartServerHealthCheck()
     {
-        while (!isServer)
+        while (!_isServer)
         {
-            if (serverConnection == null || !serverConnection.Connected)
+            if (_serverConnection == null || !_serverConnection.Connected)
             {
                 GD.Print("[Client] Server is offline. Taking over as server...");
-                isServer = true;
+                _isServer = true;
                 StartServer();
                 break;
             }
