@@ -23,6 +23,9 @@ func _on_pressed() -> void:
 	filePicker.add_filter("*.res", "Themes")
 	filePicker.add_filter("*.tres", "Themes with resources")
 	
+	filePicker.use_native_dialog = true
+	filePicker.access = 2
+	
 	add_child(filePicker)
 	filePicker.visible = true
 	
@@ -30,8 +33,11 @@ func _on_pressed() -> void:
 	
 func _changeTheme(file):
 	if file != "":
-		$"..".theme = load(file)
-		_saveTheme(file)
+		if load(file) != null:
+			$"..".theme = load(file)
+			_saveTheme(file)
+		else:
+			_saveTheme("")
 	
 func _saveTheme(file):
 	var config := ConfigFile.new()

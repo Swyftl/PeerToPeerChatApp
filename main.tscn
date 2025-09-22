@@ -75,7 +75,5 @@ offset_bottom = 8.0
 text = "Load Theme"
 script = ExtResource("2_0xm2m")
 
-[node name="FileDialog" type="FileDialog" parent="."]
-
 [connection signal="pressed" from="BottomContainer/SendButton" to="." method="_on_send_button_pressed"]
 [connection signal="pressed" from="LoadTheme" to="LoadTheme" method="_on_pressed"]
