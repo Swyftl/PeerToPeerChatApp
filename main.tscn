@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dyyffibexbcn5"]
 
-[ext_resource type="Theme" uid="uid://ckorw5avm0nr4" path="res://Theme/editor_black_oled/theme.res" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://b5m314cqxevbl" path="res://Main.cs" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://c6s0ha6k0slmc" path="res://load_theme.gd" id="2_0xm2m"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_ig7tw"]
 device = -1
@@ -17,7 +17,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_0xm2m")
 script = ExtResource("1_ig7tw")
 
 [node name="Background" type="ColorRect" parent="."]
@@ -69,20 +68,14 @@ emoji_menu_enabled = false
 shortcut_keys_enabled = false
 selecting_enabled = false
 
-[node name="OptionButton" type="OptionButton" parent="."]
+[node name="LoadTheme" type="Button" parent="."]
 layout_mode = 0
-offset_right = 118.0
-offset_bottom = 22.0
-item_count = 5
-popup/item_0/text = "purpixeled"
-popup/item_0/id = 0
-popup/item_1/text = "minimalistic"
-popup/item_1/id = 1
-popup/item_2/text = "kenneys ui"
-popup/item_2/id = 2
-popup/item_3/text = "solarized light"
-popup/item_3/id = 3
-popup/item_4/text = "solarized dark"
-popup/item_4/id = 4
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Load Theme"
+script = ExtResource("2_0xm2m")
+
+[node name="FileDialog" type="FileDialog" parent="."]
 
 [connection signal="pressed" from="BottomContainer/SendButton" to="." method="_on_send_button_pressed"]
+[connection signal="pressed" from="LoadTheme" to="LoadTheme" method="_on_pressed"]
