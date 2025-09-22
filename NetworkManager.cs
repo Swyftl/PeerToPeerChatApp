@@ -1,10 +1,12 @@
-﻿using Godot;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using Godot;
+
+namespace PeerToPeerChatApp;
 
 public partial class NetworkManager : Node
 {
