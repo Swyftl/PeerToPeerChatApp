@@ -57,7 +57,7 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 71.0
-offset_top = 36.0
+offset_top = 61.0
 offset_right = -90.0
 offset_bottom = -51.0
 grow_horizontal = 2
@@ -70,10 +70,21 @@ selecting_enabled = false
 
 [node name="LoadTheme" type="Button" parent="."]
 layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 107.0
+offset_bottom = 35.0
 text = "Load Theme"
 script = ExtResource("2_0xm2m")
 
+[node name="RemoveTheme" type="Button" parent="."]
+layout_mode = 0
+offset_left = 114.0
+offset_top = 4.0
+offset_right = 242.0
+offset_bottom = 35.0
+text = "Remove Theme"
+
 [connection signal="pressed" from="BottomContainer/SendButton" to="." method="_on_send_button_pressed"]
 [connection signal="pressed" from="LoadTheme" to="LoadTheme" method="_on_pressed"]
+[connection signal="pressed" from="RemoveTheme" to="LoadTheme" method="_on_remove_theme_pressed"]

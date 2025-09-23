@@ -48,3 +48,18 @@ func _saveTheme(file):
 	var err = config.save(savePath)
 	if err != OK:
 		push_error("Failed to save theme")
+
+func _removeTheme():
+	var config:= ConfigFile.new()
+	var savePath = "user://theme.cfg"
+	
+	config.set_value("theme", "path", "")
+	
+	var err = config.save(savePath)
+	if err != OK:
+		push_error("Failed to save theme")
+		
+	$"..".theme = null
+
+func _on_remove_theme_pressed() -> void:
+	_removeTheme()
