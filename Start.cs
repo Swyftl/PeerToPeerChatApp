@@ -1,5 +1,6 @@
 using Godot;
-using System;
+
+namespace PeerToPeerChatApp;
 
 public partial class Start : Control
 {

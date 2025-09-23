@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dyyffibexbcn5"]
 
-[ext_resource type="Theme" uid="uid://ckorw5avm0nr4" path="res://Theme/editor_black_oled/theme.res" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://b5m314cqxevbl" path="res://Main.cs" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://cgo6f4gfpiugq" path="res://menu_button.gd" id="2_0xm2m"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_ig7tw"]
 device = -1
@@ -17,7 +17,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_0xm2m")
 script = ExtResource("1_ig7tw")
 
 [node name="Background" type="ColorRect" parent="."]
@@ -58,7 +57,7 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 71.0
-offset_top = 20.0
+offset_top = 61.0
 offset_right = -90.0
 offset_bottom = -51.0
 grow_horizontal = 2
@@ -68,5 +67,18 @@ context_menu_enabled = false
 emoji_menu_enabled = false
 shortcut_keys_enabled = false
 selecting_enabled = false
+
+[node name="MenuButton" type="MenuButton" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Settings"
+icon_alignment = 1
+item_count = 2
+popup/item_0/text = "Load Theme"
+popup/item_0/id = 0
+popup/item_1/text = "Remove Theme"
+popup/item_1/id = 1
+script = ExtResource("2_0xm2m")
 
 [connection signal="pressed" from="BottomContainer/SendButton" to="." method="_on_send_button_pressed"]
