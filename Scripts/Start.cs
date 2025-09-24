@@ -19,7 +19,7 @@ public partial class Start : Control
             userData.username = _usernameInput.Text;
             // Change the scene to main
 
-            var mainScene = GD.Load<PackedScene>("res://main.tscn");
+            var mainScene = GD.Load<PackedScene>("res://Scenes/main.tscn");
 
             GetTree().ChangeSceneToPacked(mainScene);
         }
