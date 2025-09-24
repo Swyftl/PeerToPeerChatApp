@@ -68,11 +68,14 @@ emoji_menu_enabled = false
 shortcut_keys_enabled = false
 selecting_enabled = false
 
-[node name="MenuButton" type="MenuButton" parent="."]
+[node name="Topbar" type="HBoxContainer" parent="."]
 layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
-text = "Settings"
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Theme" type="MenuButton" parent="Topbar"]
+layout_mode = 2
+text = "Theme"
 icon_alignment = 1
 item_count = 2
 popup/item_0/text = "Load Theme"
@@ -80,5 +83,12 @@ popup/item_0/id = 0
 popup/item_1/text = "Remove Theme"
 popup/item_1/id = 1
 script = ExtResource("2_0xm2m")
+
+[node name="Text" type="MenuButton" parent="Topbar"]
+layout_mode = 2
+text = "Text"
+item_count = 1
+popup/item_0/text = "Change Font Size"
+popup/item_0/id = 0
 
 [connection signal="pressed" from="BottomContainer/SendButton" to="." method="_on_send_button_pressed"]
