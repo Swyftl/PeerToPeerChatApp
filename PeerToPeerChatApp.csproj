@@ -25,4 +25,7 @@
     <Content Include="Scripts\TextSettings.gd" />
     <Content Include="Scripts\UserData.cs.uid" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Octokit" Version="14.0.0" />
+  </ItemGroup>
 </Project>
