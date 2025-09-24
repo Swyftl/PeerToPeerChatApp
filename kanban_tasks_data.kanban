@@ -1,0 +1,68 @@
+{
+	"categories": [
+		{
+			"uuid": "66e1b633-97b8-4a81-9440-2be0b1e65884",
+			"title": "Task",
+			"color": "42a117"
+		},
+		{
+			"uuid": "2edd3e32-6e40-4f76-8c02-48642ef66098",
+			"title": "New Feature",
+			"color": "1c50cc"
+		},
+		{
+			"uuid": "90044fe7-7c7b-45d5-b6fd-a83db6dcb4a7",
+			"title": "Bug/Problem",
+			"color": "ff0000"
+		}
+	],
+	"stages": [
+		{
+			"uuid": "bc6f119a-5331-4797-be28-183d8721bc62",
+			"title": "Todo",
+			"tasks": [
+				"3adef312-a7c1-411d-92df-5be95bfa96fd",
+				"b0f476d0-68b9-42ef-8856-f06eaf80ec0c"
+			]
+		},
+		{
+			"uuid": "7dff496a-9fcb-41be-aaf3-995dfab31869",
+			"title": "Doing",
+			"tasks": []
+		},
+		{
+			"uuid": "485bde7f-e1b2-4f3b-acb9-e7cbac63c291",
+			"title": "Done",
+			"tasks": []
+		}
+	],
+	"tasks": [
+		{
+			"uuid": "3adef312-a7c1-411d-92df-5be95bfa96fd",
+			"title": "Allow users to connect outside of their own network",
+			"description": "Allow users to connect to an outside server if they want to, it would open the chat app up a lot more.",
+			"category": "66e1b633-97b8-4a81-9440-2be0b1e65884",
+			"steps": []
+		},
+		{
+			"uuid": "b0f476d0-68b9-42ef-8856-f06eaf80ec0c",
+			"title": "Ping Command",
+			"description": "Ping command, for finding the server latency",
+			"category": "2edd3e32-6e40-4f76-8c02-48642ef66098",
+			"steps": []
+		}
+	],
+	"layout": {
+		"columns": [
+			[
+				"bc6f119a-5331-4797-be28-183d8721bc62"
+			],
+			[
+				"7dff496a-9fcb-41be-aaf3-995dfab31869"
+			],
+			[
+				"485bde7f-e1b2-4f3b-acb9-e7cbac63c291"
+			]
+		]
+	}
+}

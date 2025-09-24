@@ -24,6 +24,10 @@ UserData="*res://Scripts/UserData.cs"
 
 project/assembly_name="PeerToPeerChatApp"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/kanban_tasks/plugin.cfg")
+
 [input]
 
 Enter={
