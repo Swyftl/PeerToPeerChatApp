@@ -6,5 +6,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="project.godot" />
+    <Content Include="Scripts\load_theme.gd" />
+    <Content Include="Scripts\menu_button.gd" />
   </ItemGroup>
 </Project>
