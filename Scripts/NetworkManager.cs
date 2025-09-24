@@ -174,12 +174,14 @@ public partial class NetworkManager : Node
     // --- UPDATED SendMessage to include username ---
     public async void SendMessage(string message)
     {
+        string username = GetNode<UserData>("/root/UserData").username;
         string formattedMessage = $"{message}";
 
         byte[] data = Encoding.UTF8.GetBytes(formattedMessage + "\n");
 
         if (_isServer)
         {
+            formattedMessage = $"{username}: {message}";
             GD.Print("[Server] Sending: " + formattedMessage);
             Broadcast(formattedMessage, null);
             OnMessageReceived?.Invoke(formattedMessage);
