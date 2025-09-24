@@ -57,7 +57,7 @@ public partial class Start : Control
     {
         if (_usernameInput.Text.Length is > 2 and <= 20)
         {
-            var userData = GetNode<UserData>("/root/UserData");
+            var userData = GetNode<UserData>("/root/UsernameStore");
             userData.username = _usernameInput.Text;
             // Change the scene to main
 

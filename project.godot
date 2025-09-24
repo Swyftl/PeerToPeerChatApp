@@ -18,7 +18,7 @@ config/icon="uid://cla8qj6w4gqly"
 
 [autoload]
 
-UserData="*res://Scripts/UserData.cs"
+UsernameStore="*res://Scripts/UserData.cs"
 
 [dotnet]
 

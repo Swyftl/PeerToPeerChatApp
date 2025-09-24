@@ -24,6 +24,7 @@ public partial class NetworkManager : Node
     public NetworkManager()
     {
         _localId = Guid.NewGuid().ToString();
+        Task.Yield();
         TryConnectOrHost();
     }
 
@@ -63,6 +64,7 @@ public partial class NetworkManager : Node
 
     private async void HandleClient(TcpClient client)
     {
+        // The server handles the client messages here
         var stream = client.GetStream();
         var buffer = new byte[1024];
 
@@ -138,6 +140,21 @@ public partial class NetworkManager : Node
             byte[] response = Encoding.UTF8.GetBytes(responseMessage + "\n");
             await stream.WriteAsync(response, 0, response.Length);
         }
+        if (msg == "/ping")
+        {
+            var now = DateTime.UtcNow;
+
+            var hour = now.Hour;
+            var minute = now.Minute;
+            var second = now.Second;
+            var millisecond = now.Millisecond;
+            
+            GD.Print("Sending current time to the server");
+            
+            string currentTime = $"SERVERTIME:{hour}:{minute}:{second}:{millisecond}";
+            byte[] response = Encoding.UTF8.GetBytes(currentTime + "\n");
+            await stream.WriteAsync(response, 0, response.Length);
+        }
         else
         {
             string responseMessage = $"Server|UnknownCommand: {msg}\n";
@@ -161,10 +178,12 @@ public partial class NetworkManager : Node
 
     private async void HandleServerConnection(TcpClient serverConn)
     {
+        // The client handles server connection and sending messages here
+        
         var stream = serverConn.GetStream();
         
         // Get information used for the next step
-        string username = GetNode<UserData>("/root/UserData").username;
+        string username = GetNode<UserData>("/root/UsernameStore").username;
         string clientVersion = ProjectSettings.GetSetting("application/config/version").ToString();
         
         // Send the client version over
@@ -185,6 +204,32 @@ public partial class NetworkManager : Node
                 if (bytesRead > 0)
                 {
                     string msg = Encoding.UTF8.GetString(buffer, 0, bytesRead).Trim();
+
+                    if (msg.StartsWith("SERVERTIME:"))
+                    {
+                        // Manage the ping message here
+                        
+                        string timeData = msg.Substring("SERVERTIME:".Length);
+                        
+                        string[] parts = timeData.Split(':');
+
+                        if (parts.Length == 4 &&
+
+                            int.TryParse(parts[0], out int hour) &&
+                            int.TryParse(parts[1], out int minute) &&
+                            int.TryParse(parts[2], out int second) &&
+                            int.TryParse(parts[3], out int millisecond)
+                           )
+                        {
+                            DateTime now = DateTime.UtcNow;
+                            DateTime serverTime = new DateTime(
+                                now.Year, now.Month, now.Day, hour , minute, second, millisecond, DateTimeKind.Utc);
+
+                            TimeSpan latency = DateTime.UtcNow - serverTime;
+                            OnMessageReceived?.Invoke($"Pong: Latency: {latency.TotalMilliseconds}ms");
+                        }
+                    }
+                    
                     GD.Print("[Client] Received: " + msg);
                     OnMessageReceived?.Invoke(msg);
                 }
@@ -205,7 +250,7 @@ public partial class NetworkManager : Node
     // --- UPDATED SendMessage to include username ---
     public async void SendMessage(string message)
     {
-        string username = GetNode<UserData>("/root/UserData").username;
+        string username = GetNode<UserData>("/root/UsernameStore").username;
         string formattedMessage = $"{message}";
 
         byte[] data = Encoding.UTF8.GetBytes(formattedMessage + "\n");

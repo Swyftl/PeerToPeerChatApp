@@ -5,27 +5,6 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="ExportProfile" />
-    <Content Include="ExportProfile.gdbuild" />
-    <Content Include="export_presets.cfg" />
-    <Content Include="icon.svg" />
-    <Content Include="icon.svg.import" />
-    <Content Include="PeerToPeerChatApp.sln" />
-    <Content Include="project.godot" />
-    <Content Include="README.md" />
-    <Content Include="Scenes\main.tscn" />
-    <Content Include="Scenes\Start.tscn" />
-    <Content Include="Scripts\load_theme.gd" />
-    <Content Include="Scripts\load_theme.gd.uid" />
-    <Content Include="Scripts\Main.cs.uid" />
-    <Content Include="Scripts\menu_button.gd" />
-    <Content Include="Scripts\menu_button.gd.uid" />
-    <Content Include="Scripts\NetworkManager.cs.uid" />
-    <Content Include="Scripts\Start.cs.uid" />
-    <Content Include="Scripts\TextSettings.gd" />
-    <Content Include="Scripts\UserData.cs.uid" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Octokit" Version="14.0.0" />
   </ItemGroup>
 </Project>
