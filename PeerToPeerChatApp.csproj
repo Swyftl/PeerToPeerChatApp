@@ -13,6 +13,8 @@
     <Content Include="PeerToPeerChatApp.sln" />
     <Content Include="project.godot" />
     <Content Include="README.md" />
+    <Content Include="Scenes\main.tscn" />
+    <Content Include="Scenes\Start.tscn" />
     <Content Include="Scripts\load_theme.gd" />
     <Content Include="Scripts\menu_button.gd" />
   </ItemGroup>

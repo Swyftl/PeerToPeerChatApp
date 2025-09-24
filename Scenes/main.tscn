@@ -87,8 +87,10 @@ script = ExtResource("2_0xm2m")
 [node name="Text" type="MenuButton" parent="Topbar"]
 layout_mode = 2
 text = "Text"
-item_count = 1
-popup/item_0/text = "Change Font Size"
+item_count = 2
+popup/item_0/text = "Increase Font Size"
 popup/item_0/id = 0
+popup/item_1/text = "Decrease Font Size"
+popup/item_1/id = 1
 
 [connection signal="pressed" from="BottomContainer/SendButton" to="." method="_on_send_button_pressed"]
