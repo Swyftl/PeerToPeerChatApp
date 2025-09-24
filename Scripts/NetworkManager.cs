@@ -58,11 +58,6 @@ public partial class NetworkManager : Node
             GD.Print("[Network] Client connected!");
             _clients.Add(client);
             HandleClient(client);
-            
-            // Ask new client to identify with their username
-            var stream = client.GetStream();
-            byte[] request = Encoding.UTF8.GetBytes("CMD:REQUEST_USERNAME\n");
-            await stream.WriteAsync(request, 0, request.Length);
         }
     }
 
@@ -116,7 +111,7 @@ public partial class NetworkManager : Node
                     {
                         if (!_versionConfirmed.ContainsKey(client) || !_versionConfirmed[client])
                         {
-                            Broadcast($"Your client is not compatible with the server, please make sure to match server and client versions", client);
+                            Broadcast($"Your client version does not match the server, please update to version {ProjectSettings.GetSetting("application/config/version").ToString()} to connect to this server", client);
                             client.Close();
                         }
                         OnMessageReceived?.Invoke(msg);
