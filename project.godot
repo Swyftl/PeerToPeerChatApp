@@ -18,7 +18,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-UserData="*res://UserData.cs"
+UserData="*res://Scripts/UserData.cs"
 
 [dotnet]
 

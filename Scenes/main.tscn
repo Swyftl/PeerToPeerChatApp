@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dyyffibexbcn5"]
 
-[ext_resource type="Script" uid="uid://b5m314cqxevbl" path="res://Main.cs" id="1_ig7tw"]
-[ext_resource type="Script" uid="uid://cgo6f4gfpiugq" path="res://menu_button.gd" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://b5m314cqxevbl" path="res://Scripts/Main.cs" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://cgo6f4gfpiugq" path="res://Scripts/menu_button.gd" id="2_0xm2m"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_ig7tw"]
 device = -1

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cudgjux0hyih8"]
 
-[ext_resource type="Script" uid="uid://bsm0qyqqswtqd" path="res://Start.cs" id="1_r305v"]
+[ext_resource type="Script" uid="uid://bsm0qyqqswtqd" path="res://Scripts/Start.cs" id="1_og4jd"]
 
 [node name="Start" type="Control"]
 layout_mode = 3
@@ -9,7 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_r305v")
+script = ExtResource("1_og4jd")
 
 [node name="LineEdit" type="LineEdit" parent="."]
 layout_mode = 1

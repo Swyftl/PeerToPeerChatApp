@@ -1,6 +1,6 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeerToPeerChatApp", "PeerToPeerChatApp.csproj", "{C7E84901-AA6B-45F3-8964-AC84686DDD1C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeerToPeerChatApp", "PeerToPeerChatApp.csproj", "{BA41B01D-4C17-4A9C-ADB8-BB401EFF873F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,11 +9,11 @@ Global
 	ExportRelease|Any CPU = ExportRelease|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C7E84901-AA6B-45F3-8964-AC84686DDD1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C7E84901-AA6B-45F3-8964-AC84686DDD1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C7E84901-AA6B-45F3-8964-AC84686DDD1C}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
-		{C7E84901-AA6B-45F3-8964-AC84686DDD1C}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
-		{C7E84901-AA6B-45F3-8964-AC84686DDD1C}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
-		{C7E84901-AA6B-45F3-8964-AC84686DDD1C}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{BA41B01D-4C17-4A9C-ADB8-BB401EFF873F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA41B01D-4C17-4A9C-ADB8-BB401EFF873F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA41B01D-4C17-4A9C-ADB8-BB401EFF873F}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{BA41B01D-4C17-4A9C-ADB8-BB401EFF873F}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{BA41B01D-4C17-4A9C-ADB8-BB401EFF873F}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{BA41B01D-4C17-4A9C-ADB8-BB401EFF873F}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
 	EndGlobalSection
 EndGlobal
