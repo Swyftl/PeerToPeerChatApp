@@ -88,6 +88,16 @@ public partial class NetworkManager : Node
                     {
                         GD.Print("Command Sent");
                         await HandleCommand(client, msg);
+                    } else if (msg.StartsWith("CLIENTVERSION:"))
+                    {
+                        string version = msg.Substring("CLIENTVERSION:".Length).Trim();
+                        string serverVersion = ProjectSettings.GetSetting("application/config/version").ToString();
+                        
+                        if (version != serverVersion)
+                        {
+                            Broadcast($"Your client version: {version} and the server's client version: {serverVersion} are not compatible", client);
+                            client.Close();
+                        }
                     }
                     else
                     {
@@ -143,6 +153,11 @@ public partial class NetworkManager : Node
         string username = GetNode<UserData>("/root/UserData").username;
         byte[] intro = Encoding.UTF8.GetBytes($"USERNAME:{username}\n");
         await stream.WriteAsync(intro, 0, intro.Length);
+        
+        string clientVersion = ProjectSettings.GetSetting("application/config/version").ToString();
+        
+        byte[] intro2 = Encoding.UTF8.GetBytes($"CLIENTVERSION:{clientVersion}\n");
+        await stream.WriteAsync(intro2, 0, intro2.Length);
         
         var buffer = new byte[1024];
 
