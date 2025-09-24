@@ -19,6 +19,8 @@ public partial class Main : Control
         _sendButton = GetNode<Button>("BottomContainer/SendButton");
         _messageInput = GetNode<LineEdit>("BottomContainer/MessageInput");
         _chatOutput = GetNode<TextEdit>("ChatOutput");
+        
+        DisplayServer.WindowSetTitle($"PeerToPeerChatApp {ProjectSettings.GetSetting("application/config/version").ToString()}");
     }
 
     private void HandleIncomingMessage(string message)
