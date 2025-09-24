@@ -14,6 +14,7 @@ public partial class NetworkManager : Node
     public List<TcpClient> _clients = new();
     private TcpClient _serverConnection;
     private Dictionary<TcpClient, string> _usernames = new();
+    private Dictionary<TcpClient, bool> _versionConfirmed = new();
     private const int MainPort = 5001;
     private bool _isServer = false;
     private string _localId;
@@ -90,17 +91,30 @@ public partial class NetworkManager : Node
                         await HandleCommand(client, msg);
                     } else if (msg.StartsWith("CLIENTVERSION:"))
                     {
+                        // Manages making sure the client and the server are the same version
                         string version = msg.Substring("CLIENTVERSION:".Length).Trim();
                         string serverVersion = ProjectSettings.GetSetting("application/config/version").ToString();
                         
-                        if (version != serverVersion)
+                        // Make sure the versions are correct
+
+                        if (version == serverVersion)
                         {
-                            Broadcast($"Your client version: {version} and the server's client version: {serverVersion} are not compatible", client);
+                            _versionConfirmed[client] = true;
+                            GD.Print($"[Server] Version confirmed as compatible");
+                        }
+                        else
+                        {
+                            GD.Print($"[Server] Server version {serverVersion} not compatible");
                             client.Close();
                         }
                     }
                     else
                     {
+                        if (!_versionConfirmed.ContainsKey(client) || !_versionConfirmed[client])
+                        {
+                            Broadcast($"Your client is not compatible with the server, please make sure to match server and client versions", client);
+                            client.Close();
+                        }
                         OnMessageReceived?.Invoke(msg);
                         Broadcast(msg, client);
                     }
