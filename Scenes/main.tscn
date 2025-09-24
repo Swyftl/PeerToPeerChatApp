@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dyyffibexbcn5"]
+[gd_scene load_steps=6 format=3 uid="uid://dyyffibexbcn5"]
 
 [ext_resource type="Script" uid="uid://b5m314cqxevbl" path="res://Scripts/Main.cs" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://cgo6f4gfpiugq" path="res://Scripts/menu_button.gd" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://dywhxosv0m6aa" path="res://Scripts/TextSettings.gd" id="3_8gbba"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_ig7tw"]
 device = -1
@@ -92,5 +93,6 @@ popup/item_0/text = "Increase Font Size"
 popup/item_0/id = 0
 popup/item_1/text = "Decrease Font Size"
 popup/item_1/id = 1
+script = ExtResource("3_8gbba")
 
 [connection signal="pressed" from="BottomContainer/SendButton" to="." method="_on_send_button_pressed"]

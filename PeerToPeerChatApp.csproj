@@ -16,6 +16,13 @@
     <Content Include="Scenes\main.tscn" />
     <Content Include="Scenes\Start.tscn" />
     <Content Include="Scripts\load_theme.gd" />
+    <Content Include="Scripts\load_theme.gd.uid" />
+    <Content Include="Scripts\Main.cs.uid" />
     <Content Include="Scripts\menu_button.gd" />
+    <Content Include="Scripts\menu_button.gd.uid" />
+    <Content Include="Scripts\NetworkManager.cs.uid" />
+    <Content Include="Scripts\Start.cs.uid" />
+    <Content Include="Scripts\TextSettings.gd" />
+    <Content Include="Scripts\UserData.cs.uid" />
   </ItemGroup>
 </Project>
