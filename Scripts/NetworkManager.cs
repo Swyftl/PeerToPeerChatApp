@@ -11,7 +11,7 @@ namespace PeerToPeerChatApp;
 public partial class NetworkManager : Node
 {
     private TcpListener _server;
-    private List<TcpClient> _clients = new();
+    public List<TcpClient> _clients = new();
     private TcpClient _serverConnection;
     private const int MainPort = 5001;
     private bool _isServer = false;
@@ -56,6 +56,9 @@ public partial class NetworkManager : Node
             GD.Print("[Network] Client connected!");
             _clients.Add(client);
             HandleClient(client);
+            
+            // Request a username from the user
+            Broadcast("0x001", client);
         }
     }
 

@@ -1,3 +1,4 @@
+using System.Net.Sockets;
 using Godot;
 
 namespace PeerToPeerChatApp;
@@ -29,11 +30,31 @@ public partial class Main : Control
     {
         if (_messageInput.Text.Length is > 0 and < 2048)
         {
-            _networkManager.SendMessage(_messageInput.Text);
-            _messageInput.Text = "";
+            if (!checkIfCommand(_messageInput.Text))
+            {
+                _networkManager.SendMessage(_messageInput.Text);
+                _messageInput.Text = "";
+            }
         }
     }
 
+    private bool checkIfCommand(string message)
+    {
+        if (message == "/peers")
+        {
+            _messageInput.Text = "";
+            var response = "";
+
+            _chatOutput.Text += "This feature is coming soon\n";
+            
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
     public override void _Process(double delta)
     {
         if (Input.IsActionJustPressed("Enter"))
