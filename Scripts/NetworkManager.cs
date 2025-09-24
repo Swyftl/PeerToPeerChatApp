@@ -78,6 +78,7 @@ public partial class NetworkManager : Node
                 int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
                 if (bytesRead > 0)
                 {
+                    
                     string msg = Encoding.UTF8.GetString(buffer, 0, bytesRead).Trim();
                     GD.Print("[Server] Received: " + msg);
                     if (msg.StartsWith("USERNAME:"))
@@ -87,10 +88,6 @@ public partial class NetworkManager : Node
                             string username = msg.Substring("USERNAME:".Length).Trim();
                             _usernames[client] = username;
                             GD.Print($"[Server] Registered Username {username}");
-                        }
-                        else
-                        {
-                            client.Close();
                         }
                     } else if (msg.StartsWith('/'))
                     {
