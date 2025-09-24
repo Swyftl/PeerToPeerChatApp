@@ -13,6 +13,7 @@ public partial class NetworkManager : Node
     private TcpListener _server;
     public List<TcpClient> _clients = new();
     private TcpClient _serverConnection;
+    private Dictionary<TcpClient, string> _usernames = new();
     private const int MainPort = 5001;
     private bool _isServer = false;
     private string _localId;
@@ -57,8 +58,10 @@ public partial class NetworkManager : Node
             _clients.Add(client);
             HandleClient(client);
             
-            // Request a username from the user
-            Broadcast("0x001", client);
+            // Ask new client to identify with their username
+            var stream = client.GetStream();
+            byte[] request = Encoding.UTF8.GetBytes("CMD:REQUEST_USERNAME\n");
+            await stream.WriteAsync(request, 0, request.Length);
         }
     }
 
@@ -76,8 +79,21 @@ public partial class NetworkManager : Node
                 {
                     string msg = Encoding.UTF8.GetString(buffer, 0, bytesRead).Trim();
                     GD.Print("[Server] Received: " + msg);
-                    OnMessageReceived?.Invoke(msg);
-                    Broadcast(msg, client);
+                    if (msg.StartsWith("USERNAME:"))
+                    {
+                        string username = msg.Substring("USERNAME:".Length).Trim();
+                        _usernames[client] = username;
+                        GD.Print($"[Server] Registered Username {username}");
+                    } else if (msg.StartsWith('/'))
+                    {
+                        GD.Print("Command Sent");
+                        await HandleCommand(client, msg);
+                    }
+                    else
+                    {
+                        OnMessageReceived?.Invoke(msg);
+                        Broadcast(msg, client);
+                    }
                 }
             }
             catch
@@ -85,6 +101,25 @@ public partial class NetworkManager : Node
                 _clients.Remove(client);
                 break;
             }
+        }
+    }
+
+    private async Task HandleCommand(TcpClient client, string msg)
+    {
+        var stream = client.GetStream();
+
+        if (msg == "/users")
+        {
+            string userList = string.Join(", ", _usernames.Values);
+            string responseMessage = $"Server|Connected users: {userList}";
+            byte[] response = Encoding.UTF8.GetBytes(responseMessage + "\n");
+            await stream.WriteAsync(response, 0, response.Length);
+        }
+        else
+        {
+            string responseMessage = $"Server|UnknownCommand: {msg}\n";
+            byte[] response = Encoding.UTF8.GetBytes(responseMessage + "\n");
+            await stream.WriteAsync(response, 0, response.Length);
         }
     }
 
@@ -104,6 +139,11 @@ public partial class NetworkManager : Node
     private async void HandleServerConnection(TcpClient serverConn)
     {
         var stream = serverConn.GetStream();
+        
+        string username = GetNode<UserData>("/root/UserData").username;
+        byte[] intro = Encoding.UTF8.GetBytes($"USERNAME:{username}\n");
+        await stream.WriteAsync(intro, 0, intro.Length);
+        
         var buffer = new byte[1024];
 
         while (serverConn.Connected)
@@ -134,8 +174,7 @@ public partial class NetworkManager : Node
     // --- UPDATED SendMessage to include username ---
     public async void SendMessage(string message)
     {
-        string username = GetNode<UserData>("/root/UserData").username;
-        string formattedMessage = $"{username}|{message}";
+        string formattedMessage = $"{message}";
 
         byte[] data = Encoding.UTF8.GetBytes(formattedMessage + "\n");
 
