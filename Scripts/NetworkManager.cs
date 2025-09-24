@@ -82,9 +82,16 @@ public partial class NetworkManager : Node
                     GD.Print("[Server] Received: " + msg);
                     if (msg.StartsWith("USERNAME:"))
                     {
-                        string username = msg.Substring("USERNAME:".Length).Trim();
-                        _usernames[client] = username;
-                        GD.Print($"[Server] Registered Username {username}");
+                        if (_versionConfirmed.ContainsKey(client))
+                        {
+                            string username = msg.Substring("USERNAME:".Length).Trim();
+                            _usernames[client] = username;
+                            GD.Print($"[Server] Registered Username {username}");
+                        }
+                        else
+                        {
+                            client.Close();
+                        }
                     } else if (msg.StartsWith('/'))
                     {
                         GD.Print("Command Sent");
@@ -164,14 +171,17 @@ public partial class NetworkManager : Node
     {
         var stream = serverConn.GetStream();
         
+        // Get information used for the next step
         string username = GetNode<UserData>("/root/UserData").username;
-        byte[] intro = Encoding.UTF8.GetBytes($"USERNAME:{username}\n");
-        await stream.WriteAsync(intro, 0, intro.Length);
-        
         string clientVersion = ProjectSettings.GetSetting("application/config/version").ToString();
         
+        // Send the client version over
         byte[] intro2 = Encoding.UTF8.GetBytes($"CLIENTVERSION:{clientVersion}\n");
         await stream.WriteAsync(intro2, 0, intro2.Length);
+        
+        // Send over the username
+        byte[] intro = Encoding.UTF8.GetBytes($"USERNAME:{username}\n");
+        await stream.WriteAsync(intro, 0, intro.Length);
         
         var buffer = new byte[1024];
 
